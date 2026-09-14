@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Registration - Smart Clothing E-Commerce</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0b1120; --card-bg: rgba(30, 41, 59, 0.85); --border: #334155;
+            --text-primary: #f8fafc; --text-secondary: #94a3b8; --accent: #6366f1; --accent-hover: #4f46e5;
+            --danger: #ef4444; --danger-bg: rgba(239, 68, 68, 0.12); --danger-border: rgba(239, 68, 68, 0.3); --success: #10b981;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+            background: radial-gradient(circle at top, #1e1b4b 0%, #0f172a 50%, var(--bg) 100%);
+            color: var(--text-primary); min-height: 100vh;
+            display: flex; align-items: center; justify-content: center; padding: 24px 16px;
+        }
+        .auth-container {
+            width: 100%; max-width: 480px; background: var(--card-bg);
+            border: 1px solid var(--border); border-radius: 16px; padding: 36px 32px;
+            backdrop-filter: blur(12px); box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+        .auth-header { text-align: center; margin-bottom: 24px; }
+        .brand-link {
+            font-size: 13px; text-transform: uppercase; letter-spacing: 0.08em;
+            color: #818cf8; text-decoration: none; font-weight: 600; display: inline-block; margin-bottom: 8px;
+        }
+        h1 { font-family: 'Outfit', sans-serif; font-size: 26px; font-weight: 700; color: #ffffff; margin-bottom: 6px; }
+        .subtitle { color: var(--text-secondary); font-size: 14px; }
+        .alert-error { background-color: var(--danger-bg); border: 1px solid var(--danger-border); color: #fca5a5; padding: 12px 16px; border-radius: 8px; font-size: 14px; margin-bottom: 20px; line-height: 1.5; }
+        .alert-error ul { margin-left: 18px; }
+        .form-group { margin-bottom: 16px; }
+        label { display: block; font-size: 13px; font-weight: 500; color: #cbd5e1; margin-bottom: 6px; }
+        input[type="text"], input[type="email"], input[type="password"] {
+            width: 100%; padding: 11px 14px; border-radius: 8px; background: #0f172a;
+            border: 1px solid var(--border); color: var(--text-primary); font-size: 14px; outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.25); }
+        .helper-text { font-size: 12px; color: var(--text-secondary); margin-top: 4px; }
+        .btn-submit {
+            width: 100%; padding: 12px; border: none; border-radius: 8px; background-color: var(--accent);
+            color: white; font-size: 15px; font-weight: 600; cursor: pointer; transition: background-color 0.2s, transform 0.1s; margin-top: 10px;
+        }
+        .btn-submit:hover { background-color: var(--accent-hover); }
+        .btn-submit:active { transform: scale(0.99); }
+        .auth-footer { margin-top: 24px; text-align: center; font-size: 14px; color: var(--text-secondary); }
+        .auth-footer a { color: #a5b4fc; text-decoration: none; font-weight: 500; }
+        .auth-footer a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-header">
+            <a href="<?= base_url('index.php') ?>" class="brand-link">Smart Clothing</a>
+            <h1>Create Account</h1>
+            <p class="subtitle">Join to explore and purchase next-gen smart apparel</p>
+        </div>
+        <?php if (!empty($errors)): ?>
+            <div class="alert-error">
+                <?php if (count($errors) === 1): ?><div><?= e($errors[0]) ?></div>
+                <?php else: ?><ul><?php foreach ($errors as $err): ?><li><?= e($err) ?></li><?php endforeach; ?></ul><?php endif; ?>
+            </div>
+        <?php endif; ?>
+        <form method="POST" action="<?= base_url('register.php') ?>" novalidate>
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" value="<?= e($name) ?>" required autofocus>
+            </div>
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" value="<?= e($email) ?>" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="At least 6 characters" required>
+                <div class="helper-text">Minimum 6 characters</div>
+            </div>
+            <div class="form-group">
+                <label for="confirm_password">Confirm Password</label>
+                <input type="password" id="confirm_password" name="confirm_password" placeholder="Re-type your password" required>
+            </div>
+            <button type="submit" class="btn-submit">Register Account</button>
+        </form>
+        <div class="auth-footer">Already have an account? <a href="<?= base_url('login.php') ?>">Sign in</a></div>
+    </div>
+</body>
+</html>
